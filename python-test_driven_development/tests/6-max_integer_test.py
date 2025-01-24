@@ -20,7 +20,8 @@ class TestMaxInteger(unittest.TestCase):
         self.assertEqual(
             max_integer([5]),
             5,
-            """Le plus grand élément dans une liste de un élément devrait être cet élément"""
+            """Le plus grand élément dans une liste de un élément
+            devrait être cet élément"""
         )
 
     def test_multiple_elements_positive(self):
