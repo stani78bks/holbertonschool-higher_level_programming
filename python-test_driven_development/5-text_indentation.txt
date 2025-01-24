@@ -1,0 +1,22 @@
+>>> text_indentation = __import__('5-text_indentation').text_indentation
+
+
+>>> text_indentation("")
+>>> # (Empty output since the string is empty)
+
+>>> text_indentation("No special chars here")
+No special chars here
+
+>>> text_indentation("Holberton. School? How are you: John")
+Holberton.
+School?
+How are you:
+John
+>>> text_indentation("Holberton.School")
+Holberton.
+School
+>>> text_indentation("Holberton.\n\nSchool?\n\nHow are you:\n\nJohn")
+Holberton.
+School?
+How are you:
+John
