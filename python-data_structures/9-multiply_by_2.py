@@ -1,3 +1,9 @@
 #!/usr/bin/python3
-def multiply_by_2(my_dict):
-    return dict(zip(my_dict.keys(), (i * 2 for i in my_dict.values())))
+def max_integer(my_list=[]):
+    if len(my_list) == 0:
+        return None
+    m = 0
+    for i in my_list:
+        if i > m:
+            m = i
+    return m

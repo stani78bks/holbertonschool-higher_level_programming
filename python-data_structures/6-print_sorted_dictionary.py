@@ -1,4 +1,4 @@
 #!/usr/bin/python3
-def print_sorted_dictionary(my_dict):
-    for key in sorted(my_dict):
-        print('{}: {}'.format(key, my_dict[key]))
+def print_matrix_integer(matrix=[[]]):
+    print('{}'.format('\n'.join([' '.join(['{:d}'.format(i)
+          for i in r]) for r in matrix])))

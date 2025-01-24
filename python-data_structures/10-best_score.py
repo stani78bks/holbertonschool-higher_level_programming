@@ -1,5 +1,9 @@
-#1/usr/bin/python3
-def best_score(my_dict):
-    if bool(my_dict):
-        return max(my_dict.items())[0]
-    return None
+#!/usr/bin/python3
+def divisible_by_2(my_list=[]):
+    new_list = list(my_list)
+    for i in my_list:
+        if i % 2 == 0:
+            new_list[i] = True
+        else:
+            new_list[i] = False
+    return (new_list)
