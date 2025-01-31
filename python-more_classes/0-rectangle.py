@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 # 0-rectangle.py
-"""def une classe rectange vide"""
+
+"""Def une classe Rectangle vide."""
 
 
 class Rectangle:
-    """represente un rectangle"""
+    """represente un Rectangle."""
     pass
