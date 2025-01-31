@@ -6,9 +6,9 @@
 
 class Rectangle:
     """represente un Rectangle."""
-    
-    number_of_instances=0
-    
+
+    number_of_instances = 0
+
     def __init__(self, width=0, height=0):
         self.__width = width
         self.__height = height
