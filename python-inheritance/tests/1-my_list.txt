@@ -1,5 +1,6 @@
 >>> MyList = __import__('1-my_list').MyList
 
+# 🔹 Test 1 : Liste avec des nombres en désordre
 >>> my_list = MyList()
 >>> my_list.append(3)
 >>> my_list.append(1)
@@ -13,5 +14,47 @@
 >>> my_list.print_sorted()  # Affiche la liste triée sans la modifier
 [1, 2, 3, 4, 5]
 
->>> print(my_list)  # Vérifie que la liste originale n'a pas changé
+>>> print(my_list)  # Vérifie que la liste originale est intacte
 [3, 1, 2, 5, 4]
+
+# 🔹 Test 2 : Liste vide
+>>> empty_list = MyList()
+>>> print(empty_list)  # Vérifie qu'elle est vide
+[]
+
+>>> empty_list.print_sorted()  # Vérifie que ça ne plante pas
+[]
+
+# 🔹 Test 3 : Liste déjà triée
+>>> sorted_list = MyList()
+>>> sorted_list.append(1)
+>>> sorted_list.append(2)
+>>> sorted_list.append(3)
+>>> sorted_list.append(4)
+>>> sorted_list.append(5)
+
+>>> print(sorted_list)  # Affiche la liste déjà triée
+[1, 2, 3, 4, 5]
+
+>>> sorted_list.print_sorted()  # Vérifie que ça reste trié
+[1, 2, 3, 4, 5]
+
+>>> print(sorted_list)  # Vérifie que l'originale n'a pas changé
+[1, 2, 3, 4, 5]
+
+# 🔹 Test 4 : Liste avec des doublons
+>>> duplicate_list = MyList()
+>>> duplicate_list.append(4)
+>>> duplicate_list.append(2)
+>>> duplicate_list.append(2)
+>>> duplicate_list.append(3)
+>>> duplicate_list.append(1)
+
+>>> print(duplicate_list)  # Affiche la liste originale
+[4, 2, 2, 3, 1]
+
+>>> duplicate_list.print_sorted()  # Vérifie que les doublons sont bien triés
+[1, 2, 2, 3, 4]
+
+>>> print(duplicate_list)  # Vérifie que la liste originale est intacte
+[4, 2, 2, 3, 1]
