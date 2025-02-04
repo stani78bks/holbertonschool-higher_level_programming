@@ -1,6 +1,6 @@
 >>> MyList = __import__('1-my_list').MyList
 
-# 🔹 Test 1 : Liste avec des nombres en désordre
+# 🔹 Test 1 : Liste normale avec des nombres en désordre
 >>> my_list = MyList()
 >>> my_list.append(3)
 >>> my_list.append(1)
@@ -14,12 +14,12 @@
 >>> my_list.print_sorted()  # Affiche la liste triée sans la modifier
 [1, 2, 3, 4, 5]
 
->>> print(my_list)  # Vérifie que la liste originale est intacte
+>>> print(my_list)  # Vérifie que la liste originale n’a pas changé
 [3, 1, 2, 5, 4]
 
 # 🔹 Test 2 : Liste vide
 >>> empty_list = MyList()
->>> print(empty_list)  # Vérifie qu'elle est vide
+>>> print(empty_list)  # Vérifie qu’elle est bien vide
 []
 
 >>> empty_list.print_sorted()  # Vérifie que ça ne plante pas
@@ -39,7 +39,7 @@
 >>> sorted_list.print_sorted()  # Vérifie que ça reste trié
 [1, 2, 3, 4, 5]
 
->>> print(sorted_list)  # Vérifie que l'originale n'a pas changé
+>>> print(sorted_list)  # Vérifie que la liste originale est intacte
 [1, 2, 3, 4, 5]
 
 # 🔹 Test 4 : Liste avec des doublons
@@ -58,3 +58,83 @@
 
 >>> print(duplicate_list)  # Vérifie que la liste originale est intacte
 [4, 2, 2, 3, 1]
+
+# 🔹 Test 5 : Liste avec un seul élément
+>>> single_list = MyList()
+>>> single_list.append(42)
+
+>>> print(single_list)  # Affiche la liste avec un seul élément
+[42]
+
+>>> single_list.print_sorted()  # Vérifie que ça ne plante pas
+[42]
+
+>>> print(single_list)  # Vérifie que la liste originale n’a pas changé
+[42]
+
+# 🔹 Test 6 : Liste avec des nombres négatifs
+>>> negative_list = MyList()
+>>> negative_list.append(-3)
+>>> negative_list.append(-1)
+>>> negative_list.append(-2)
+>>> negative_list.append(-5)
+>>> negative_list.append(-4)
+
+>>> print(negative_list)  # Affiche la liste originale
+[-3, -1, -2, -5, -4]
+
+>>> negative_list.print_sorted()  # Vérifie que les négatifs sont bien triés
+[-5, -4, -3, -2, -1]
+
+>>> print(negative_list)  # Vérifie que la liste originale n’a pas changé
+[-3, -1, -2, -5, -4]
+
+# 🔹 Test 7 : Liste mixte avec positifs et négatifs
+>>> mixed_list = MyList()
+>>> mixed_list.append(-1)
+>>> mixed_list.append(3)
+>>> mixed_list.append(-2)
+>>> mixed_list.append(0)
+>>> mixed_list.append(2)
+
+>>> print(mixed_list)  # Affiche la liste originale
+[-1, 3, -2, 0, 2]
+
+>>> mixed_list.print_sorted()  # Vérifie que tout est bien trié
+[-2, -1, 0, 2, 3]
+
+>>> print(mixed_list)  # Vérifie que la liste originale est intacte
+[-1, 3, -2, 0, 2]
+
+# 🔹 Test 8 : Liste avec des valeurs identiques
+>>> same_value_list = MyList()
+>>> same_value_list.append(7)
+>>> same_value_list.append(7)
+>>> same_value_list.append(7)
+
+>>> print(same_value_list)  # Affiche la liste originale
+[7, 7, 7]
+
+>>> same_value_list.print_sorted()  # Vérifie que ça ne change rien
+[7, 7, 7]
+
+>>> print(same_value_list)  # Vérifie que la liste originale est intacte
+[7, 7, 7]
+
+# 🔹 Test 9 : Ajout dynamique après tri
+>>> dynamic_list = MyList()
+>>> dynamic_list.append(10)
+>>> dynamic_list.append(5)
+
+>>> print(dynamic_list)  # Affiche la liste initiale
+[10, 5]
+
+>>> dynamic_list.print_sorted()  # Affiche la liste triée
+[5, 10]
+
+>>> dynamic_list.append(7)  # Ajoute un élément après avoir trié
+>>> print(dynamic_list)  # Vérifie que l’élément est bien ajouté
+[10, 5, 7]
+
+>>> dynamic_list.print_sorted()  # Vérifie que le tri fonctionne encore
+[5, 7, 10]
