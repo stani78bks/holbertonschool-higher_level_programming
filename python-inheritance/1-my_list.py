@@ -1,8 +1,10 @@
 #!/usr/bin/python3
-# 0-lookup.py
+# 1-my_list.py
 """Fonction qui return une list"""
 
 
-def lookup(obj):
-    """return obj"""
-    return dir(obj)
+class Mylist(list):
+    def print_sorted(self):
+
+        """print obj"""
+        print(sorted(self))
