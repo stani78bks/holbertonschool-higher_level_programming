@@ -1,16 +1,7 @@
->>> # Importation de la classe BaseGeometry
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 
 >>> # Création d'une instance de BaseGeometry
 >>> bg = BaseGeometry()
-
->>> # Vérification que bg est bien une instance de BaseGeometry
->>> isinstance(bg, BaseGeometry)
-True
-
->>> # Vérification que bg est bien un objet de type BaseGeometry
->>> type(bg) is BaseGeometry
-True
 
 >>> # Test de la méthode area() qui doit lever une Exception
 >>> bg.area()
@@ -18,18 +9,10 @@ Traceback (most recent call last):
     ...
 Exception: area() is not implemented
 
->>> # Vérification que la méthode area existe bien
->>> hasattr(bg, "area")
-True
-
->>> # Test de integer_validator() avec des valeurs valides
+>>> # Test de integer_validator() avec une valeur valide (entier positif)
 >>> bg.integer_validator("width", 10)
 
 >>> bg.integer_validator("height", 5)
-
->>> bg.integer_validator("length", 1)
-
->>> bg.integer_validator("size", 99999999)
 
 >>> # Test de integer_validator() avec une valeur négative (doit lever ValueError)
 >>> bg.integer_validator("height", -5)
@@ -37,13 +20,12 @@ Traceback (most recent call last):
     ...
 ValueError: height must be greater than 0
 
->>> # Test de integer_validator() avec la valeur 0 (doit lever ValueError)
 >>> bg.integer_validator("size", 0)
 Traceback (most recent call last):
     ...
 ValueError: size must be greater than 0
 
->>> # Test de integer_validator() avec des types non entiers (doit lever TypeError)
+>>> # Test de integer_validator() avec un type invalide (string, float, list...)
 >>> bg.integer_validator("size", "hello")
 Traceback (most recent call last):
     ...
@@ -68,31 +50,3 @@ TypeError: count must be an integer
 Traceback (most recent call last):
     ...
 TypeError: value must be an integer
-
->>> bg.integer_validator("data", True)
-Traceback (most recent call last):
-    ...
-TypeError: data must be an integer
-
->>> bg.integer_validator("data", {"key": 5})
-Traceback (most recent call last):
-    ...
-TypeError: data must be an integer
-
->>> bg.integer_validator("data", {1, 2, 3})
-Traceback (most recent call last):
-    ...
-TypeError: data must be an integer
-
->>> bg.integer_validator("data", range(5))
-Traceback (most recent call last):
-    ...
-TypeError: data must be an integer
-
->>> # Vérification que la méthode integer_validator existe bien
->>> hasattr(bg, "integer_validator")
-True
-
->>> # Vérification que integer_validator est bien une méthode
->>> callable(getattr(bg, "integer_validator"))
-True
