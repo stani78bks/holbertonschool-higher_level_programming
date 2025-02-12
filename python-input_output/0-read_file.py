@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+
 def read_file(filename=""):
     """ Ouverture du fichier en mode lecture avec """
     """ 'with', qui garantit sa fermeture automatique """

@@ -1,0 +1,6 @@
+>>> read_file = __import__('0-read_file').read_file 
+
+>>> with open("test_file.txt", "w", encoding="utf-8") as f:
+...     _ = f.write("Hello, world!\n")
+>>> read_file("test_file.txt")
+Hello, world!
