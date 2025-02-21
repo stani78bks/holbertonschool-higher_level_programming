@@ -1,53 +1,57 @@
 #!/usr/bin/python3
-import requests  # bibliothèque requestspour faire des requêtes HTTP
-import json      # bibliothèque json pour manipuler des données JSON
-import csv       # bibliothèque csv pour travailler avec des fichiers CSV
+import requests
+import json
+import csv
 
 
 def fetch_and_print_posts():
-    """Récupère et affiche les titres des publications depuis une API."""
-    # Envoie une requête GET à l'URL donnée pour récupérer les publications
+    """Récupère et affiche les titres
+    des publications depuis une API."""
+    """Envoie une requête GET à l'URL
+    donnée pour récupérer les publications."""
     reponse = requests.get("https://jsonplaceholder.typicode.com/posts")
 
-    # Vérifie si la requête a réussi (code de statut 200)
+    """Vérifie si la requête a réussi (code de statut 200)."""
     if reponse.status_code == 200:
-        print(reponse.status_code)  # Affiche le code de statut de la réponse
-        reponse_json = reponse.json()  # Convertit la réponse en objet JSON
+        print(reponse.status_code)
+        reponse_json = reponse.json()
 
-        # Parcourt chaque publication dans le JSON récupéré
+        """Parcourt chaque publication dans le JSON récupéré."""
         for _title in reponse_json:
-            print(_title["title"])  # Affiche le titre de chaque publication
+            print(_title["title"])
 
 
 def fetch_and_save_posts():
-    """Récupère les publications depuis une
-    API et les enregistre dans un fichier CSV."""
-    # Envoie une requête GET à l'URL donnée pour récupérer les publications
+    """Récupère les publications depuis
+    une API et les enregistre dans un fichier CSV."""
+    """Envoie une requête GET à l'URL
+    donnée pour récupérer les publications."""
     reponse = requests.get("https://jsonplaceholder.typicode.com/posts")
 
-    # Vérifie si la requête a réussi (code de statut 200)
+    """Vérifie si la requête a réussi (code de statut 200)."""
     if reponse.status_code == 200:
-        print("Requête réussie !")  # Affiche un message de succès
-        reponse_json = reponse.json()  # Convertit la réponse en objet JSON
-        posts_data = []  # Initialise une liste pour stocker les données
+        print("Requête réussie !")
+        reponse_json = reponse.json()
+        posts_data = []
 
-        # Parcourt chaque publication dans le JSON récupéré
+        """Parcourt chaque publication dans le JSON récupéré."""
         for add in reponse_json:
-            # Ajoute un dictionnaire contenant les informations
+            """Ajoute un dictionnaire contenant les informations."""
             posts_data.append({
-                "id": add["id"],    # Récupère l'identifiant de la publication
-                "title": add["title"],  # Récupère le titre de la publication
-                "body": add["body"]     # Récupère le contenu de la publication
+                "id": add["id"],
+                "title": add["title"],
+                "body": add["body"]
             })
 
-        # Ouvre un fichier CSV en mode écriture
+        """Ouvre un fichier CSV en mode écriture."""
         with open('posts.csv', 'w', newline='', encoding='utf-8') as file_date:
-            # Crée un écrivain pour le fichier CSV avec les noms des colonnes
+            """Crée un écrivain pour le fichier
+            CSV avec les noms des colonnes."""
             writer = csv.DictWriter(
                 file_date, fieldnames=["id", "title", "body"]
             )
-            writer.writeheader()  # Écrit les en-têtes dans le fichier CSV
+            writer.writeheader()
 
-            # Parcourt chaque publication et l'écrit dans le fichier CSV
+            """Parcourt chaque publication et l'écrit dans le fichier CSV."""
             for post in posts_data:
-                writer.writerow(post)  # Écrit la ligne de données
+                writer.writerow(post)
