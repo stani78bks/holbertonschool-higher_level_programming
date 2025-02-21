@@ -1,57 +1,54 @@
 #!/usr/bin/python3
-import requests
-import json
+"""Defines function that fetches posts"""
 import csv
+import requests
 
 
 def fetch_and_print_posts():
-    """Récupère et affiche les titres
-    des publications depuis une API."""
-    """Envoie une requête GET à l'URL
-    donnée pour récupérer les publications."""
-    reponse = requests.get("https://jsonplaceholder.typicode.com/posts")
+    """function fetches and prints"""
+    url = "https://jsonplaceholder.typicode.com/posts"
 
-    """Vérifie si la requête a réussi (code de statut 200)."""
-    if reponse.status_code == 200:
-        print(reponse.status_code)
-        reponse_json = reponse.json()
+    try:
+        res = requests.get(url)
+        res.raise_for_status()  # Raise an exception for HTTP errors
+    except requests.RequestException as e:
+        print(f"Failed to retrieve data: {e}")
+        return
 
-        """Parcourt chaque publication dans le JSON récupéré."""
-        for _title in reponse_json:
-            print(_title["title"])
+    print("Status Code: {}".format(res.status_code))
+
+    if res.headers.get("Content-Type") == "application/json; charset=utf-8":
+        json_data = res.json()
+        for post in json_data:
+            print(post["title"])
 
 
 def fetch_and_save_posts():
-    """Récupère les publications depuis
-    une API et les enregistre dans un fichier CSV."""
-    """Envoie une requête GET à l'URL
-    donnée pour récupérer les publications."""
-    reponse = requests.get("https://jsonplaceholder.typicode.com/posts")
+    """
+    Fetches all posts from JSONPlaceholder and saves them in a csv file.
+    """
+    url = "https://jsonplaceholder.typicode.com/posts"
 
-    """Vérifie si la requête a réussi (code de statut 200)."""
-    if reponse.status_code == 200:
-        print("Requête réussie !")
-        reponse_json = reponse.json()
-        posts_data = []
+    try:
+        res = requests.get(url)
+    except ValueError:
+        print("Failed to retrieve data")
+        return
 
-        """Parcourt chaque publication dans le JSON récupéré."""
-        for add in reponse_json:
-            """Ajoute un dictionnaire contenant les informations."""
-            posts_data.append({
-                "id": add["id"],
-                "title": add["title"],
-                "body": add["body"]
-            })
+    json_data = res.json()
 
-        """Ouvre un fichier CSV en mode écriture."""
-        with open('posts.csv', 'w', newline='', encoding='utf-8') as file_date:
-            """Crée un écrivain pour le fichier
-            CSV avec les noms des colonnes."""
-            writer = csv.DictWriter(
-                file_date, fieldnames=["id", "title", "body"]
-            )
-            writer.writeheader()
+    csvfile = "posts.csv"
 
-            """Parcourt chaque publication et l'écrit dans le fichier CSV."""
-            for post in posts_data:
-                writer.writerow(post)
+    keys_to_extract = ('id', 'title', 'body')
+
+    filtered_data = [
+        {key: post[key] for key in keys_to_extract}
+        for post in json_data
+        ]
+
+    headers = ['id', 'title', 'body']
+
+    with open(csvfile, "w", newline="") as file:
+        csv_write = csv.DictWriter(file, fieldnames=headers)
+        csv_write.writeheader()
+        csv_write.writerows(filtered_data)
