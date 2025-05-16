@@ -3,6 +3,8 @@
 This module provides a function to divide all elements of a matrix by a given number.
 """
 
+import math
+
 def matrix_divided(matrix, div):
     """Divides all elements of a matrix by div and returns a new matrix rounded to 2 decimal places."""
 
@@ -18,6 +20,14 @@ def matrix_divided(matrix, div):
 
     if not isinstance(div, (int, float)):
         raise TypeError("div must be a number")
+
+    if isinstance(div, float):
+        if math.isnan(div):
+            raise TypeError("div must be a number")
+        # float('inf') est accepté — sinon décommente cette ligne pour le refuser :
+        # if math.isinf(div):
+        #     raise TypeError("div must be a finite number")
+
     if div == 0:
         raise ZeroDivisionError("division by zero")
 

@@ -57,3 +57,10 @@ ZeroDivisionError: division by zero
 >>> matrix_divided([[1, 2], [3, 4]], "a")
 Traceback (most recent call last):
 TypeError: div must be a number
+
+>>> matrix_divided([[1, 2], [3, 4]], float('inf'))
+[[0.0, 0.0], [0.0, 0.0]]
+
+>>> matrix_divided([[1, 2], [3, 4]], float('nan'))
+Traceback (most recent call last):
+TypeError: div must be a number
