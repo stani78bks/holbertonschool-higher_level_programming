@@ -1,15 +1,15 @@
 #!/usr/bin/python3
-"""Module 7-rectangle : Rectangle avec symbole personnalisable."""
+"""Module 7-rectangle : rectangle avec symbole d'affichage personnalisable."""
 
 
 class Rectangle:
-    """Classe qui définit un rectangle avec affichage personnalisable."""
+    """Classe qui définit un rectangle avec symbole d'affichage configurable."""
 
+    print_symbol = "#"
     number_of_instances = 0
-    print_symbol = "#"  # symbole utilisé pour l'affichage
 
     def __init__(self, width=0, height=0):
-        """Initialise le rectangle et incrémente le compteur d’instances."""
+        """Initialise un rectangle et incrémente le compteur."""
         self.width = width
         self.height = height
         Rectangle.number_of_instances += 1
@@ -21,7 +21,7 @@ class Rectangle:
 
     @width.setter
     def width(self, value):
-        """Setter pour la largeur avec vérification."""
+        """Setter pour la largeur avec vérifications."""
         if not isinstance(value, int):
             raise TypeError("width must be an integer")
         if value < 0:
@@ -35,7 +35,7 @@ class Rectangle:
 
     @height.setter
     def height(self, value):
-        """Setter pour la hauteur avec vérification."""
+        """Setter pour la hauteur avec vérifications."""
         if not isinstance(value, int):
             raise TypeError("height must be an integer")
         if value < 0:
@@ -43,27 +43,5 @@ class Rectangle:
         self.__height = value
 
     def area(self):
-        """Retourne l'aire du rectangle."""
-        return self.__width * self.__height
-
-    def perimeter(self):
-        """Retourne le périmètre du rectangle."""
-        if self.__width == 0 or self.__height == 0:
-            return 0
-        return 2 * (self.__width + self.__height)
-
-    def __str__(self):
-        """Retourne une représentation du rectangle avec print_symbol."""
-        if self.__width == 0 or self.__height == 0:
-            return ""
-        symbol = str(self.print_symbol)
-        return "\n".join(symbol * self.__width for _ in range(self.__height))
-
-    def __repr__(self):
-        """Retourne une chaîne permettant de recréer le rectangle avec eval()."""
-        return "Rectangle({}, {})".format(self.__width, self.__height)
-
-    def __del__(self):
-        """Affiche un message et décrémente le compteur lors de la suppression."""
-        print("Bye rectangle...")
-        Rectangle.number_of_instances -= 1
+        """Retourne l’aire du rectangle."""
+        return self.__width * self.__*
