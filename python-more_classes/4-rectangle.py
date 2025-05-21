@@ -1,23 +1,36 @@
 #!/usr/bin/python3
-"""Module 4-rectangle : Rectangle avec __str__ et __repr__."""
+"""Module 4-rectangle : rectangle avec __str__ et __repr__."""
 
 
 class Rectangle:
-    """Classe qui définit un rectangle avec __str__ et __repr__."""
+    """Classe qui définit un rectangle avec affichage et reconstruction."""
 
     def __init__(self, width=0, height=0):
-        """Initialise le rectangle avec des dimensions optionnelles."""
+        """Initialise un rectangle.
+
+        Args:
+            width (int): largeur du rectangle (par défaut 0)
+            height (int): hauteur du rectangle (par défaut 0)
+        """
         self.width = width
         self.height = height
 
     @property
     def width(self):
-        """Getter de la largeur."""
+        """Récupère la largeur."""
         return self.__width
 
     @width.setter
     def width(self, value):
-        """Setter de la largeur avec vérification."""
+        """Définit la largeur avec vérification.
+
+        Args:
+            value (int): nouvelle largeur
+
+        Raises:
+            TypeError: si value n'est pas un entier
+            ValueError: si value est < 0
+        """
         if not isinstance(value, int):
             raise TypeError("width must be an integer")
         if value < 0:
@@ -26,12 +39,20 @@ class Rectangle:
 
     @property
     def height(self):
-        """Getter de la hauteur."""
+        """Récupère la hauteur."""
         return self.__height
 
     @height.setter
     def height(self, value):
-        """Setter de la hauteur avec vérification."""
+        """Définit la hauteur avec vérification.
+
+        Args:
+            value (int): nouvelle hauteur
+
+        Raises:
+            TypeError: si value n'est pas un entier
+            ValueError: si value est < 0
+        """
         if not isinstance(value, int):
             raise TypeError("height must be an integer")
         if value < 0:
@@ -39,21 +60,21 @@ class Rectangle:
         self.__height = value
 
     def area(self):
-        """Calcule et retourne l’aire du rectangle."""
+        """Retourne l'aire du rectangle."""
         return self.__width * self.__height
 
     def perimeter(self):
-        """Calcule et retourne le périmètre du rectangle."""
+        """Retourne le périmètre du rectangle (ou 0 si un côté vaut 0)."""
         if self.__width == 0 or self.__height == 0:
             return 0
         return 2 * (self.__width + self.__height)
 
     def __str__(self):
-        """Retourne une représentation en # du rectangle (affichage)."""
+        """Retourne le rectangle avec des # pour affichage."""
         if self.__width == 0 or self.__height == 0:
             return ""
         return "\n".join("#" * self.__width for _ in range(self.__height))
 
     def __repr__(self):
-        """Retourne une chaîne permettant de recréer le rectangle avec eval()."""
+        """Retourne une chaîne qui peut être utilisée avec eval()."""
         return "Rectangle({}, {})".format(self.__width, self.__height)
