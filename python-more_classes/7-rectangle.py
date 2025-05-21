@@ -1,15 +1,15 @@
 #!/usr/bin/python3
-"""Module 7-rectangle : Rectangle avec symboles et compteur d’instances."""
+"""Module 7-rectangle: Rectangle avec symbole personnalisé et compteur d’instances."""
 
 
 class Rectangle:
-    """Classe qui définit un rectangle avec symbole d'affichage personnalisable."""
+    """Classe qui définit un rectangle."""
 
     number_of_instances = 0
     print_symbol = "#"
 
     def __init__(self, width=0, height=0):
-        """Initialise le rectangle et incrémente le compteur."""
+        """Initialise le rectangle avec largeur et hauteur."""
         self.width = width
         self.height = height
         Rectangle.number_of_instances += 1
@@ -21,7 +21,7 @@ class Rectangle:
 
     @width.setter
     def width(self, value):
-        """Setter avec vérification du type et de la valeur."""
+        """Setter de la largeur avec vérification."""
         if not isinstance(value, int):
             raise TypeError("width must be an integer")
         if value < 0:
@@ -35,7 +35,7 @@ class Rectangle:
 
     @height.setter
     def height(self, value):
-        """Setter avec vérification du type et de la valeur."""
+        """Setter de la hauteur avec vérification."""
         if not isinstance(value, int):
             raise TypeError("height must be an integer")
         if value < 0:
@@ -47,24 +47,24 @@ class Rectangle:
         return self.__width * self.__height
 
     def perimeter(self):
-        """Retourne le périmètre, ou 0 si un des côtés vaut 0."""
+        """Retourne le périmètre du rectangle."""
         if self.__width == 0 or self.__height == 0:
             return 0
         return 2 * (self.__width + self.__height)
 
     def __str__(self):
-        """Affiche le rectangle avec le caractère print_symbol."""
+        """Retourne le rectangle sous forme de chaîne avec print_symbol."""
         if self.__width == 0 or self.__height == 0:
             return ""
-        # ✅ Accès à l’attribut print_symbol correct (checker exige ça)
+        # ✅ Utilisation correcte de print_symbol (par instance ou classe)
         symbol = str(self.print_symbol)
         return "\n".join(symbol * self.__width for _ in range(self.__height))
 
     def __repr__(self):
-        """Représentation formelle recréable via eval()."""
+        """Retourne une chaîne pour recréer l'objet avec eval()."""
         return "Rectangle({}, {})".format(self.__width, self.__height)
 
     def __del__(self):
-        """Message lors de la suppression de l'objet."""
+        """Affiche un message lors de la suppression et décrémente le compteur."""
         Rectangle.number_of_instances -= 1
         print("Bye rectangle...")
