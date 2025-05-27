@@ -2,7 +2,6 @@
 from abc import ABC, abstractmethod
 import math
 
-
 class Shape(ABC):
     @abstractmethod
     def area(self):
@@ -18,7 +17,7 @@ class Circle(Shape):
         self.radius = radius
 
     def area(self):
-        return math.pi * (self.radius ** 2)
+        return math.pi * self.radius ** 2
 
     def perimeter(self):
         return 2 * math.pi * self.radius
@@ -37,10 +36,6 @@ class Rectangle(Shape):
 
 
 def shape_info(shape):
-    if not (hasattr(shape, "area") and callable(shape.area)):
-        raise TypeError("Passed object has no callable 'area' method")
-    if not (hasattr(shape, "perimeter") and callable(shape.perimeter)):
-        raise TypeError("Passed object has no callable 'perimeter' method")
-
-    print(f"Area: {shape.area()}")
-    print(f"Perimeter: {shape.perimeter()}")
+    # Duck typing: on fait confiance à l'objet pour avoir les méthodes area et perimeter
+    print("Area:", shape.area())
+    print("Perimeter:", shape.perimeter())
