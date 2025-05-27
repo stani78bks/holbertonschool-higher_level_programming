@@ -1,14 +1,17 @@
 # task_01_duck_typing.py
+
 from abc import ABC, abstractmethod
 import math
 
 class Shape(ABC):
     @abstractmethod
     def area(self):
+        """Calculer l'aire de la forme."""
         pass
 
     @abstractmethod
     def perimeter(self):
+        """Calculer le périmètre de la forme."""
         pass
 
 class Circle(Shape):
@@ -16,7 +19,7 @@ class Circle(Shape):
         self.radius = radius
 
     def area(self):
-        return math.pi * (self.radius ** 2)
+        return math.pi * self.radius ** 2
 
     def perimeter(self):
         return 2 * math.pi * self.radius
@@ -33,5 +36,6 @@ class Rectangle(Shape):
         return 2 * (self.width + self.height)
 
 def shape_info(shape):
-    print("Area:", shape.area())
-    print("Perimeter:", shape.perimeter())
+    """Affiche l'aire et le périmètre de la forme donnée."""
+    print(f"Area: {shape.area()}")
+    print(f"Perimeter: {shape.perimeter()}")
