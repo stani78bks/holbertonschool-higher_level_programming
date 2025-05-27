@@ -4,22 +4,16 @@ import math
 
 
 class Shape(ABC):
-    """Abstract base class representing a shape."""
-
     @abstractmethod
     def area(self):
-        """Calculate and return the area of the shape."""
         pass
 
     @abstractmethod
     def perimeter(self):
-        """Calculate and return the perimeter of the shape."""
         pass
 
 
 class Circle(Shape):
-    """Concrete class representing a circle."""
-
     def __init__(self, radius):
         self.radius = radius
 
@@ -31,8 +25,6 @@ class Circle(Shape):
 
 
 class Rectangle(Shape):
-    """Concrete class representing a rectangle."""
-
     def __init__(self, width, height):
         self.width = width
         self.height = height
@@ -45,11 +37,10 @@ class Rectangle(Shape):
 
 
 def shape_info(shape):
-    """
-    Prints the area and perimeter of a shape instance.
+    if not (hasattr(shape, "area") and callable(shape.area)):
+        raise TypeError("Passed object has no callable 'area' method")
+    if not (hasattr(shape, "perimeter") and callable(shape.perimeter)):
+        raise TypeError("Passed object has no callable 'perimeter' method")
 
-    This function relies on duck typing: it assumes
-    the passed object has area() and perimeter() methods.
-    """
     print(f"Area: {shape.area()}")
     print(f"Perimeter: {shape.perimeter()}")
