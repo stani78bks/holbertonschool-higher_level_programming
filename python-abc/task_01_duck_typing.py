@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+# task_01_duck_typing.py
 from abc import ABC, abstractmethod
 import math
 
@@ -11,17 +11,15 @@ class Shape(ABC):
     def perimeter(self):
         pass
 
-
 class Circle(Shape):
     def __init__(self, radius):
         self.radius = radius
 
     def area(self):
-        return math.pi * self.radius ** 2
+        return math.pi * (self.radius ** 2)
 
     def perimeter(self):
         return 2 * math.pi * self.radius
-
 
 class Rectangle(Shape):
     def __init__(self, width, height):
@@ -34,8 +32,6 @@ class Rectangle(Shape):
     def perimeter(self):
         return 2 * (self.width + self.height)
 
-
 def shape_info(shape):
-    # Duck typing: on fait confiance à l'objet pour avoir les méthodes area et perimeter
     print("Area:", shape.area())
     print("Perimeter:", shape.perimeter())
