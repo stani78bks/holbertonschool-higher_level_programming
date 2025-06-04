@@ -14,5 +14,10 @@ def append_write(filename="", text=""):
     Returns:
         int: The number of characters added.
     """
+    if not isinstance(filename, str):
+        raise TypeError("filename must be a string")
+    if not isinstance(text, str):
+        raise TypeError("text must be a string")
+
     with open(filename, "a", encoding="utf-8") as f:
         return f.write(text)
