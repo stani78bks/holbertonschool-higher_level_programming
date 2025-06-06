@@ -4,13 +4,13 @@ Function that returns the dictionary description for JSON serialization
 """
 
 def class_to_json(obj):
-    """Returns all serializable attributes of obj (instance and class)"""
+    """Returns all serializable attributes of obj (instance and class-level)"""
     result = {}
 
-    # 1. Attributs d'instance
+    # Récupère les attributs d'instance
     result.update(obj.__dict__)
 
-    # 2. Attributs de classe (non callable, non spéciaux, non déjà présents)
+    # Récupère les attributs de classe accessibles via l'instance
     for attr in dir(obj):
         if not attr.startswith("__"):
             value = getattr(obj, attr)
