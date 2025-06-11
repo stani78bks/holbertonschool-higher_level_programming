@@ -5,75 +5,72 @@ task_03_http_server.py
 A basic HTTP API using Python's built-in http.server module.
 
 Endpoints:
-- GET /         → Simple welcome message
-- GET /data     → JSON: {"name": "John", "age": 30, "city": "New York"}
+- GET /         → "Hello, this is a simple API!"
+- GET /data     → JSON with user info
 - GET /status   → "OK"
-- GET /info     → JSON with API version and description
+- GET /info     → JSON with API metadata
 - All others    → JSON 404 error
 
-Usage:
-Run the server with: python3 task_03_http_server.py
-Then visit: http://localhost:8000/ in your browser or use curl.
+Run the server with:
+    python3 task_03_http_server.py
 """
 
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import json
 
-class SimpleAPIHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        """Handle GET requests and route them to the correct endpoint."""
-        # Root endpoint
-        if self.path == "/":
-            self.send_response(200)
-            self.send_header("Content-type", "text/plain")
-            self.end_headers()
-            self.wfile.write(b"Hello, this is a simple API!")
 
-        # /data returns JSON data
+class SimpleAPIHandler(BaseHTTPRequestHandler):
+    def _send_json(self, status_code, data):
+        """Helper to send a JSON response."""
+        response = json.dumps(data).encode()
+        self.send_response(status_code)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(response)))
+        self.end_headers()
+        self.wfile.write(response)
+
+    def _send_text(self, status_code, text):
+        """Helper to send a plain text response."""
+        response = text.encode()
+        self.send_response(status_code)
+        self.send_header("Content-Type", "text/plain")
+        self.send_header("Content-Length", str(len(response)))
+        self.end_headers()
+        self.wfile.write(response)
+
+    def do_GET(self):
+        """Handle GET requests for predefined endpoints."""
+        if self.path == "/":
+            self._send_text(200, "Hello, this is a simple API!")
+
         elif self.path == "/data":
-            response = {
+            self._send_json(200, {
                 "name": "John",
                 "age": 30,
                 "city": "New York"
-            }
-            self.send_response(200)
-            self.send_header("Content-type", "application/json")
-            self.end_headers()
-            self.wfile.write(json.dumps(response).encode())
+            })
 
-        # /status returns plain OK
         elif self.path == "/status":
-            self.send_response(200)
-            self.send_header("Content-type", "text/plain")
-            self.end_headers()
-            self.wfile.write(b"OK")
+            self._send_text(200, "OK")
 
-        # /info returns API metadata
         elif self.path == "/info":
-            response = {
+            self._send_json(200, {
                 "version": "1.0",
                 "description": "A simple API built with http.server"
-            }
-            self.send_response(200)
-            self.send_header("Content-type", "application/json")
-            self.end_headers()
-            self.wfile.write(json.dumps(response).encode())
+            })
 
-        # Unknown endpoint → 404 Not Found
         else:
-            self.send_response(404)
-            self.send_header("Content-type", "application/json")
-            self.end_headers()
-            error_message = {"error": "Endpoint not found"}
-            self.wfile.write(json.dumps(error_message).encode())
+            self._send_json(404, {"error": "Endpoint not found"})
+
 
 def run(server_class=HTTPServer, handler_class=SimpleAPIHandler):
-    """Start the HTTP server."""
+    """Start the HTTP server on port 8000."""
     port = 8000
     server_address = ("", port)
     httpd = server_class(server_address, handler_class)
-    print(f"🚀 Server running at http://localhost:{port}")
+    print(f"✅ Server running at http://localhost:{port}")
     httpd.serve_forever()
+
 
 if __name__ == "__main__":
     run()
