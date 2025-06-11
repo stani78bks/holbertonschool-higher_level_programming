@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+task_03_http_server.py - Simple API using http.server
+"""
+
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 
@@ -15,7 +19,11 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            data = {"name": "John", "age": 30, "city": "New York"}
+            data = {
+                "name": "John",
+                "age": 30,
+                "city": "New York"
+            }
             self.wfile.write(json.dumps(data).encode("utf-8"))
 
         elif self.path == "/status":
@@ -28,14 +36,19 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            info = {"version": "1.0", "description": "A simple API built with http.server"}
+            info = {
+                "version": "1.0",
+                "description": "A simple API built with http.server"
+            }
             self.wfile.write(json.dumps(info).encode("utf-8"))
 
         else:
             self.send_response(404)
             self.send_header("Content-type", "application/json")
             self.end_headers()
-            error = {"error": "Endpoint not found"}
+            error = {
+                "error": "Endpoint not found"
+            }
             self.wfile.write(json.dumps(error).encode("utf-8"))
 
 
