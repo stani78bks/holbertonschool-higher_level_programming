@@ -1,61 +1,44 @@
-#!/usr/bin/env python3
-"""
-task_03_http_server.py
-
-Simple HTTP API using Python's built-in http.server module.
-"""
-
-from http.server import HTTPServer, BaseHTTPRequestHandler
+#!/usr/bin/python3
+import http.server
+import socketserver
 import json
 
-
-class SimpleAPIHandler(BaseHTTPRequestHandler):
-    def _send_json(self, status_code, data):
-        response = json.dumps(data).encode("utf-8")
-        self.send_response(status_code)
-        self.send_header("Content-Type", "application/json")  # ✅ no charset
-        self.send_header("Content-Length", str(len(response)))
-        self.end_headers()
-        self.wfile.write(response)
-
-    def _send_text(self, status_code, text):
-        response = text.encode("utf-8")
-        self.send_response(status_code)
-        self.send_header("Content-Type", "text/plain")  # ✅ no charset
-        self.send_header("Content-Length", str(len(response)))
-        self.end_headers()
-        self.wfile.write(response)
-
+class SimpleAPIHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path == "/":
-            self._send_text(200, "Hello, this is a simple API!")  # ✅ message exact
-        elif self.path == "/data":
-            self._send_json(200, {
-                "name": "John",
-                "age": 30,
-                "city": "New York"
-            })
-        elif self.path == "/status":
-            self._send_text(200, "OK")
-        elif self.path == "/info":
-            self._send_json(200, {
-                "version": "1.0",
-                "description": "A simple API built with http.server"
-            })
+        if self.path == '/':
+            self.send_response(200)
+            self.send_header('Content-type', 'text/plain')
+            self.end_headers()
+            self.wfile.write(b"Hello, this is a simple API!")
+
+        elif self.path == '/data':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            data = {"name": "John", "age": 30, "city": "New York"}
+            self.wfile.write(json.dumps(data).encode())
+
+        elif self.path == '/status':
+            self.send_response(200)
+            self.send_header('Content-type', 'text/plain')
+            self.end_headers()
+            self.wfile.write(b"OK")
+
+        elif self.path == '/info':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            info = {"version": "1.0", "description": "A simple API built with http.server"}
+            self.wfile.write(json.dumps(info).encode())
+
         else:
-            self._send_json(404, {"error": "Endpoint not found"})
+            self.send_response(404)
+            self.send_header('Content-type', 'text/plain')
+            self.end_headers()
+            self.wfile.write(b"Endpoint not found")
 
-    def do_POST(self):
-        self._send_text(405, "Method Not Allowed")
-
-
-def run():
-    port = 8000
-    server_address = ("", port)
-    httpd = HTTPServer(server_address, SimpleAPIHandler)
-    print("Server started on port 8000...")
-    httpd.serve_forever()
-
-
-if __name__ == "__main__":
-    run()
+if __name__ == '__main__':
+    PORT = 8000
+    with socketserver.TCPServer(("", PORT), SimpleAPIHandler) as httpd:
+        print(f"Serving on port {PORT}")
+        httpd.serve_forever()
