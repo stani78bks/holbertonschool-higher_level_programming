@@ -1,22 +1,20 @@
 #!/usr/bin/python3
-''' city model '''
+"""
+model_city.py
+Defines the City class which maps to the cities table in the database.
+"""
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
-from model_state import Base
+from sqlalchemy.ext.declarative import declarative_base
+from model_state import Base, State
+
+Base = declarative_base()
 
 
 class City(Base):
-    """
-    City class that links to the MySQL 'cities' table.
-    Attributes:
-        id (int): The city ID, primary key, auto-generated, unique.
-        name (str): The name of the city, a string of up to 128 characters.
-        state_id (int): The ID of the state that the city belongs
-    """
+    """Class that defines the City table."""
+
     __tablename__ = 'cities'
-    # Defining the columns of the cities table
+
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     name = Column(String(128), nullable=False)
-    state_id = Column(Integer, ForeignKey('states.id'), nullable=False)
-    # Establishing relationship between City and State
-    state = relationship("State", backref="cities")
+    state_id = Column(Integer, ForeignKey(State.id), nullable=False)
